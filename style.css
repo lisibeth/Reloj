@@ -1,0 +1,302 @@
+/* Resetea el margen, relleno y tamaño de los elementos */
+*,*::before,*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Define variables CSS para los colores */
+  :root{
+    --c1: white;
+    --c2: black;
+    --cb: hsl(0,0%,95%);
+    --cs: hsl(0,0%,80%);
+    --cbs: dodgerblue;
+    --cbm: var(--c2);
+    --cbh: var(--c2);
+  }
+
+  body{
+    background-image: url(./img/fondo.png);
+    background-repeat: repeat;
+    background-size: auto 150%;
+    background-position: center center;
+    background-color: black;
+  }
+
+
+  /* Contenedor principal del reloj */
+  .box_reloj{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    counter-reset: numero;
+
+  }
+  .reloj{
+    font-size: 90vmin;
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    padding: .02em;
+    border: .005em solid var(--cb);
+  }
+
+  /* Subcontenedor dentro del reloj */
+  .sub_reloj{
+    font-size: .9em;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 .1em var(--cs);
+    border-radius: inherit;
+    overflow: hidden;
+    background-color: var(--c1);
+  }
+  /* Líneas de segundos */
+  .l_seconds{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: .003em;
+    height: 50%;
+    transform-origin: bottom;
+  }
+  /* Pseudo-elemento para las líneas de segundos */
+  .l_seconds:before{
+    content: "";
+    position: absolute;
+    top: .025em;
+    width: 100%;
+    height: .02em;
+    background-color: var(--c2);
+  }
+  /* Líneas de segundos más gruesas cada 5 segundos */
+  .l_seconds:nth-of-type(5n){
+    width: .01em;
+  }
+  .l_seconds:nth-of-type(5n):before{
+    height: .035em;
+  }
+
+  /* Números de segundos */
+  .n_seconds{
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    width: 1.5em;
+    height: 42%;
+    font-size: .06em;
+    font-family: sans-serif;
+    transform-origin: bottom;
+    counter-increment: nvc;
+  }
+  /* Pseudo-elemento para mostrar los números de segundos */
+  .n_seconds:before{
+    content: counter(nvc) + "";
+    display: block;
+    color: var(--c2);
+  }
+  /* Contenedor de la barra de segundos */
+  .time_seconds{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: 10;
+  }
+  /* Barra de segundos */
+  .time_seconds .bar_seconds{
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 48%;
+    background-color: var(--cbs);
+    width: .006em;
+    transform-origin: bottom;
+    animation: tiempo 60s infinite steps(60);
+  }
+  /* Pseudo-elemento para la parte superior de la barra de segundos */
+  .time_seconds .bar_seconds:before{
+    content: "";
+    position: absolute;
+    top: 100%;
+    height: 8%;
+    width: 100%;
+    background-color: inherit;
+  }
+  .time_seconds:before{
+    content: "";
+    position: absolute;
+    font-size: .03em;
+    width: 1em;
+    height: 1em;
+    border-radius: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: var(--cbs);
+  }
+  .time_minute{
+    width: 100%;
+    height: 100%;
+  }
+  .time_minute .bar_minute{
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: .03em;
+    height: 42%;
+    background-color: rgb(3, 77, 146);
+    border-radius: .05em;
+    animation: tiempo 3600s infinite linear;
+    transform-origin: bottom;
+  }
+  .time_hora{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .time_hora .bar_hora{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    margin: auto;
+    width: .045em;
+    height: 35%;
+    background-color: var(--cbh);
+    border-radius: .045em .045em 0 0;
+    animation: tiempo 21600s infinite linear;
+  }
+  /* Pseudo-elemento para la parte superior de la barra de horas */
+  .time_hora .bar_hora:before{
+    font-size: .045em;
+    content: "";
+    position: absolute;
+    top: calc(100% - (1em / 2));
+    width: 100%;
+    height: 1em;
+    background-color: inherit;
+    border-radius: 0 0 1em 1em;
+  }
+
+  /* Clases para rotar las líneas de segundos */
+  .ls1 { transform: rotate(6deg); }
+  .ls2 { transform: rotate(12deg); }
+  .ls3 { transform: rotate(18deg); }
+  .ls4 { transform: rotate(24deg); }
+  .ls5 { transform: rotate(30deg); }
+  .ls6 { transform: rotate(36deg); }
+  .ls7 { transform: rotate(42deg); }
+  .ls8 { transform: rotate(48deg); }
+  .ls9 { transform: rotate(54deg); }
+  .ls10 { transform: rotate(60deg); }
+  .ls11 { transform: rotate(66deg); }
+  .ls12 { transform: rotate(72deg); }
+  .ls13 { transform: rotate(78deg); }
+  .ls14 { transform: rotate(84deg); }
+  .ls15 { transform: rotate(90deg); }
+  .ls16 { transform: rotate(96deg); }
+  .ls17 { transform: rotate(102deg); }
+  .ls18 { transform: rotate(108deg); }
+  .ls19 { transform: rotate(114deg); }
+  .ls20 { transform: rotate(120deg); }
+  .ls21 { transform: rotate(126deg); }
+  .ls22 { transform: rotate(132deg); }
+  .ls23 { transform: rotate(138deg); }
+  .ls24 { transform: rotate(144deg); }
+  .ls25 { transform: rotate(150deg); }
+  .ls26 { transform: rotate(156deg); }
+  .ls27 { transform: rotate(162deg); }
+  .ls28 { transform: rotate(168deg); }
+  .ls29 { transform: rotate(174deg); }
+  .ls30 { transform: rotate(180deg); }
+  .ls31 { transform: rotate(186deg); }
+  .ls32 { transform: rotate(192deg); }
+  .ls33 { transform: rotate(198deg); }
+  .ls34 { transform: rotate(204deg); }
+  .ls35 { transform: rotate(210deg); }
+  .ls36 { transform: rotate(216deg); }
+  .ls37 { transform: rotate(222deg); }
+  .ls38 { transform: rotate(228deg); }
+  .ls39 { transform: rotate(234deg); }
+  .ls40 { transform: rotate(240deg); }
+  .ls41 { transform: rotate(246deg); }
+  .ls42 { transform: rotate(252deg); }
+  .ls43 { transform: rotate(258deg); }
+  .ls44 { transform: rotate(264deg); }
+  .ls45 { transform: rotate(270deg); }
+  .ls46 { transform: rotate(276deg); }
+  .ls47 { transform: rotate(282deg); }
+  .ls48 { transform: rotate(288deg); }
+  .ls49 { transform: rotate(294deg); }
+  .ls50 { transform: rotate(300deg); }
+  .ls51 { transform: rotate(306deg); }
+  .ls52 { transform: rotate(312deg); }
+  .ls53 { transform: rotate(318deg); }
+  .ls54 { transform: rotate(324deg); }
+  .ls55 { transform: rotate(330deg); }
+  .ls56 { transform: rotate(336deg); }
+  .ls57 { transform: rotate(342deg); }
+  .ls58 { transform: rotate(348deg); }
+  .ls59 { transform: rotate(354deg); }
+  .ls60 { transform: rotate(360deg); }
+  
+/* Clases para rotar los números de segundos */
+  .ns1 { transform: rotate(30deg); }
+  .ns1:before { transform: rotate(-30deg); }
+  .ns2 { transform: rotate(60deg); }
+  .ns2:before { transform: rotate(-60deg); }
+  .ns3 { transform: rotate(90deg); }
+  .ns3:before { transform: rotate(-90deg); }
+  .ns4 { transform: rotate(120deg); }
+  .ns4:before { transform: rotate(-120deg); }
+  .ns5 { transform: rotate(150deg); }
+  .ns5:before { transform: rotate(-150deg); }
+  .ns6 { transform: rotate(180deg); }
+  .ns6:before { transform: rotate(-180deg); }
+  .ns7 { transform: rotate(210deg); }
+  .ns7:before { transform: rotate(-210deg); }
+  .ns8 { transform: rotate(240deg); }
+  .ns8:before { transform: rotate(-240deg); }
+  .ns9 { transform: rotate(270deg); }
+  .ns9:before { transform: rotate(-270deg); }
+  .ns10 { transform: rotate(300deg); }
+  .ns10:before { transform: rotate(-300deg); }
+  .ns11 { transform: rotate(330deg); }
+  .ns11:before { transform: rotate(-330deg); }
+  .ns12 { transform: rotate(360deg); }
+  .ns12:before { transform: rotate(-360deg); }
+  
+  /* Animación para rotar el reloj */
+  @keyframes tiempo{
+    to{
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 643px) {
+    body{
+       
+        background-size: 150% auto;
+        background-repeat: repeat;
+        background-color: black;
+       
+      }
+    
+  }
